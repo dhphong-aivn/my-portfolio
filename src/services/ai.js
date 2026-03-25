@@ -36,9 +36,12 @@ Quy tắc giao tiếp bắt buộc:
 }
 
 function buildMessages(systemPrompt, chatHistory, userText) {
+  // Bỏ qua lời chào mặc định đầu tiên nếu nó là của 'ai' để tránh lỗi 'assistant message has no user counterpart'
   const messages = [{ role: "system", content: systemPrompt }];
 
-  for (const msg of chatHistory) {
+  const validHistory = chatHistory.filter(msg => msg.text && msg.text !== "Chào bạn! Mình là trợ lý ảo của Phong. Bạn có thể hỏi mình bất cứ điều gì về kinh nghiệm hoặc các dự án của Phong nhé! Đừng quên gõ phím Cmd+K để mở bảng điều hướng nhanh!");
+
+  for (const msg of validHistory) {
     messages.push({
       role: msg.sender === "ai" ? "assistant" : "user",
       content: msg.text,
