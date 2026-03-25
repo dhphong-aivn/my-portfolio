@@ -3,51 +3,58 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const API_BASE_URL = process.env.LLM_API_BASE_URL;
-  const API_KEY = process.env.LLM_API_KEY;
-  const MODEL = process.env.LLM_MODEL;
+  const { messages, temperature, max_tokens } = req.body;
+  const apiKey = process.env.LL_API_KEY;
+  // Nebius Base URL: https://api.tokenfactory.us-central1.nebius.com/v1
+  const baseUrl = process.env.LL_API_BASE_URL || "https://api.tokenfactory.us-central1.nebius.com/v1";
+  // Nebius Model: deepseek-ai/DeepSeek-V3.2-fast
+  const model = process.env.LL_MODEL || "deepseek-ai/DeepSeek-V3.2-fast";
 
-  if (!API_BASE_URL || !API_KEY || !MODEL) {
-    console.error("Missing environment variables: LLM_API_BASE_URL, LLM_API_KEY, LLM_MODEL");
-    return res.status(500).json({ error: "Server configuration error" });
+  if (!apiKey) {
+    return res.status(500).json({ error: "Server missing API Key (LLM_API_KEY)" });
   }
 
+  // Tối ưu tin nhắn cho DeepSeek (DeepSeek thích format text sạch sẽ)
+  const optimizedMessages = (messages || []).map(msg => ({
+    role: msg.role,
+    content: msg.content
+  }));
+
   try {
-    const { messages, temperature = 0.7, max_tokens = 1024 } = req.body;
-
-    if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: "Invalid request: messages array required" });
-    }
-
-    const response = await fetch(`${API_BASE_URL}/chat/completions`, {
+    const fullUrl = `${baseUrl.replace(/\/$/, '')}/chat/completions`;
+    
+    const response = await fetch(fullUrl, {
       method: "POST",
       headers: {
+        "Authorization": `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        Authorization: `Bearer ${API_KEY}`,
-        "HTTP-Referer": "https://dinhhongphong-portfolio.vercel.app", // Website của bạn
-        "X-Title": "Phong Portfolio Digital Twin",
       },
       body: JSON.stringify({
-        model: MODEL,
-        messages,
-        temperature,
-        max_tokens,
+        model: model,
+        messages: optimizedMessages,
+        temperature: temperature || 0.6, // DeepSeek chạy rất tốt ở 0.6
+        max_tokens: 1024, // DeepSeek cho phép tokens cao hơn bản free của OpenRouter
       }),
     });
 
-    if (!response.ok) {
-      const errorText = await response.text().catch(() => "Unknown error");
-      console.error(`Upstream API Error ${response.status}:`, errorText);
-      return res.status(502).json({ error: "Upstream API error", status: response.status });
-    }
-
     const data = await response.json();
 
+    if (!response.ok) {
+      console.error("Nebius Upstream Error:", JSON.stringify(data));
+      return res.status(response.status).json({ 
+        error: "Upstream API Error", 
+        details: data.error?.message || "Unknown error from Nebius" 
+      });
+    }
+
     return res.status(200).json({
-      content: data.choices?.[0]?.message?.content || "",
+      content: data.choices?.[0]?.message?.content || "Không có phản hồi từ AI."
     });
   } catch (error) {
-    console.error("Proxy error:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    console.error("Proxy Logic Error:", error.message);
+    return res.status(502).json({ 
+      error: "Lỗi kết nối Nebius AI", 
+      details: error.message 
+    });
   }
 }
