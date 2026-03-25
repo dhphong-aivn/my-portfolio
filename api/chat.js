@@ -24,6 +24,8 @@ export default async function handler(req, res) {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${API_KEY}`,
+        "HTTP-Referer": "https://dinhhongphong-portfolio.vercel.app", // Website của bạn
+        "X-Title": "Phong Portfolio Digital Twin",
       },
       body: JSON.stringify({
         model: MODEL,
