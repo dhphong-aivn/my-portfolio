@@ -4,17 +4,14 @@ export default async function handler(req, res) {
   }
 
   const { messages, temperature, max_tokens } = req.body;
-  const apiKey = process.env.LL_API_KEY;
-  // Nebius Base URL: https://api.tokenfactory.us-central1.nebius.com/v1
-  const baseUrl = process.env.LL_API_BASE_URL || "https://api.tokenfactory.us-central1.nebius.com/v1";
-  // Nebius Model: deepseek-ai/DeepSeek-V3.2-fast
-  const model = process.env.LL_MODEL || "deepseek-ai/DeepSeek-V3.2-fast";
+  const apiKey = process.env.LLM_API_KEY;
+  const baseUrl = process.env.LLM_API_BASE_URL || "https://api.tokenfactory.us-central1.nebius.com/v1";
+  const model = process.env.LLM_MODEL || "deepseek-ai/DeepSeek-V3.2-fast";
 
   if (!apiKey) {
     return res.status(500).json({ error: "Server missing API Key (LLM_API_KEY)" });
   }
 
-  // Tối ưu tin nhắn cho DeepSeek (DeepSeek thích format text sạch sẽ)
   const optimizedMessages = (messages || []).map(msg => ({
     role: msg.role,
     content: msg.content
@@ -22,7 +19,7 @@ export default async function handler(req, res) {
 
   try {
     const fullUrl = `${baseUrl.replace(/\/$/, '')}/chat/completions`;
-    
+
     const response = await fetch(fullUrl, {
       method: "POST",
       headers: {
@@ -32,8 +29,8 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         model: model,
         messages: optimizedMessages,
-        temperature: temperature || 0.6, // DeepSeek chạy rất tốt ở 0.6
-        max_tokens: 1024, // DeepSeek cho phép tokens cao hơn bản free của OpenRouter
+        temperature: temperature || 0.6,
+        max_tokens: 1024,
       }),
     });
 
@@ -41,9 +38,9 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       console.error("Nebius Upstream Error:", JSON.stringify(data));
-      return res.status(response.status).json({ 
-        error: "Upstream API Error", 
-        details: data.error?.message || "Unknown error from Nebius" 
+      return res.status(response.status).json({
+        error: "Upstream API Error",
+        details: data.error?.message || "Unknown error from Nebius"
       });
     }
 
@@ -52,9 +49,9 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error("Proxy Logic Error:", error.message);
-    return res.status(502).json({ 
-      error: "Lỗi kết nối Nebius AI", 
-      details: error.message 
+    return res.status(502).json({
+      error: "Lỗi kết nối Nebius AI",
+      details: error.message
     });
   }
 }
