@@ -1,70 +1,72 @@
-# Vibe Coding - Digital Twin Portfolio 🚀
+# 🧩 Dinh Hong Phong - Personal Portfolio
 
-![Portfolio Preview](./public/favicon.svg) <!-- *Bạn có thể thêm ảnh chụp màn hình dự án vào thư mục public và thay link tại đây* -->
+[![Made with React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Styled with Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Deployed on Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+[![AI Powered](https://img.shields.io/badge/AI_Assistant-Digital_Twin-f39c12?style=for-the-badge&logo=openai&logoColor=white)](./api/chat.js)
 
-Đây là dự án **Trang web cá nhân (Portfolio)** được thiết kế và xây dựng theo phong cách "Vibe Coding" cực kỳ tối giản nhưng mang đậm tính tương tác. Dự án hướng tới những người làm việc trong ngành công nghệ như **AI Researcher, Data Scientist, hoặc Developer**.
+A highly personalized, modern, and interactive portfolio designed with a unique **"Tactile Papercraft & Neo-Geometric"** aesthetic. Features a built-in AI "Digital Twin" to answer questions about my work and experiences.
 
-## ✨ Tính Năng Nổi Bật
+## ✨ Key Features
 
-- 🤖 **AI Digital Twin**: Tích hợp một trợ lý ảo (sử dụng Gemini API của Google) ngay trên giao diện web. Trợ lý này đại diện cho bạn, có thể trò chuyện và giải đáp các thắc mắc của nhà tuyển dụng hoặc khách truy cập.
-- ⌨️ **Command Menu (Cmd + K)**: Điều hướng siêu tốc bằng bàn phím. Chỉ cần nhấn `Cmd + K` (hoặc `Ctrl + K` trên Windows), một thanh tìm kiếm phong cách MacOS sẽ hiện ra để lướt qua các trang.
-- 🎨 **Smart Theming**: Chế độ Tối (Dark), Sáng (Light) và đặc biệt là **Chế độ Tự Động (Auto)**. Chế độ Auto sẽ phân tích hình ảnh đại diện (avatar) của bạn và tự động nội suy ra mã màu chủ đạo để áp dụng cho toàn bộ trang web.
-- ⚡ **Siêu Tinh Gọn**: Xây dựng dựa trên Vite, React 19 và TailwindCSS. Cấu trúc thư mục được thiết kế theo tư duy Atomic Design thu gọn, giúp bạn dễ dàng tuỳ biến hoặc thêm mới tính năng.
+- **Unique Aesthetics**: A handcrafted look inspired by papercraft (Origami), focusing on solid shadows, sharp geometric borders, and a mustard-charcoal palette.
+- **AI Digital Twin**: A chatbot integrated with an OpenAI-compatible LLM (GPT-5.4) that acts as my virtual assistant, powered by a custom-built Knowledge Base.
+- **Secure Backend**: Implements an **API Proxy via Vercel Serverless Functions** to keep API keys secure while communicating with LLM endpoints.
+- **Command Palette**: Quick navigation anywhere using a macOS-style `Cmd+K` (or `Ctrl+K`) interface.
+- **Responsive Views**: Includes Career Timeline, Personal Vault (Blog), Case Studies, and a Life Gallery.
 
-## 📂 Kiến Trúc Mã Nguồn
+## 🛠️ Tech Stack
 
-Dự án đã được tái cấu trúc (Refactored) để đạt chuẩn Clean Code:
+- **Frontend**: [Vite](https://vitejs.dev/) + [React](https://reactjs.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **State Management**: React Hooks (State, Effects, Refs)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Backend API**: Node.js (Vercel Serverless Functions)
+- **Deployment**: [Vercel](https://vercel.com/)
 
-```text
-src/
-├── components/          # Các hook/UI tái sử dụng
-│   ├── ChatWidget.jsx   # Khung chat với AI
-│   ├── CommandMenu.jsx  # Menu điều hướng nhanh
-│   ├── Header.jsx       # Phần tiêu đề có ảnh đại diện và links
-│   └── TypewriterMessage.jsx # Hiệu ứng gõ phím cho AI
-├── constants/
-│   └── data.js          # Chứa toàn bộ nội dung tĩnh (Thông tin, Dự án, Links)
-├── services/
-│   └── ai.js            # Chứa logic kết nối Gemini API
-├── views/               # Các trang nội dung chính
-│   ├── GalleryView.jsx  
-│   ├── HomeView.jsx     
-│   ├── TimelineView.jsx 
-│   └── VaultView.jsx    
-├── App.jsx              # Trái tim của ứng dụng, kết nối các module
-└── index.css            # Cài đặt Tailwind và Custom Scrollbar
-```
+## 🚀 Getting Started
 
-## 🚀 Hướng Dẫn Cài Đặt và Chạy Thử nghiệm
+### Prerequisites
 
-**Bước 1:** Clone dự án này về máy của bạn.
-```bash
-git clone <url-cua-kho-chua>
-cd my-portfolio
-```
+- Node.js (LTS version recommended)
+- `npm` or `yarn`
 
-**Bước 2:** Cài đặt các thư viện (Dependencies).
-```bash
-npm install
-```
+### Installation
 
-**Bước 3:** Cấu hình API Key (Cực kỳ quan trọng).
-- Đi tới trang [Google AI Studio](https://aistudio.google.com/) để lấy một API Key miễn phí.
-- Mở file `src/services/ai.js`.
-- Gán Key của bạn vào biến `API_KEY`.
-```javascript
-const API_KEY = "ĐIỀN_KEY_CỦA_BẠN_VÀO_ĐÂY";
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/dinhhongphong/my-portfolio.git
+   cd my-portfolio
+   ```
 
-**Bước 4:** Chạy môi trường phát triển (Development Server).
-```bash
-npm run dev
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## 💡 Hướng Dẫn Tuỳ Biến (Customization)
+3. Configure Environment Variables:
+   Create a `.env.local` file in the root directory:
+   ```env
+   LLM_API_BASE_URL=https://9router.vuhai.io.vn/v1
+   LLM_API_KEY=your-api-key-here
+   LLM_MODEL=ces-chatbot-gpt-5.4
+   ```
 
-Bạn muốn thay đổi nội dung (Tên, Ảnh, Kinh nghiệm, Dự án) thành của riêng mình?
-rất đơn giản! Chỉ cần mở file **`src/constants/data.js`** và chỉnh sửa các mảng dữ liệu. Giao diện sẽ tự động cập nhật mà không cần bạn phải can thiệp vào logic code.
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
----
-*Được phát triển với tình yêu thương mãnh liệt dành cho công nghệ và tính sáng tạo.* 
+## 🔒 Security & Architecture
+
+This project follows best practices for building secure AI-powered frontend applications:
+
+- **Strict .gitignore**: Environment files (`.local`) are never committed.
+- **Reverse Proxy**: Instead of calling LLM APIs directly from the browser, we use an edge function (`/api/chat`) to inject credentials on the server side.
+- **Modular Data**: Knowledge bases are kept in `public/chatbot_data.txt` for easy updates without redeploying code.
+
+## 📄 License
+
+This project is open-source under the [MIT License](LICENSE). 
+
+Built with 🧡 by [Dinh Hong Phong](https://linkedin.com/in/dinhhongphong).

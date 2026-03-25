@@ -2,19 +2,19 @@ import React from 'react';
 import { BookOpen } from 'lucide-react';
 import { VAULT_ARTICLES } from '../constants/data';
 
-export const VaultView = ({ isLight, uiClasses }) => (
-  <div className={`rounded-2xl p-6 backdrop-blur-md transition-all ${uiClasses.card}`}>
-    <h2 className="text-xs font-mono text-slate-500 uppercase tracking-wider mb-6 flex items-center gap-2">
-      <BookOpen size={14} className="text-[var(--primary)]" /> Knowledge Vault
+export const VaultView = ({ uiClasses }) => (
+  <div className={`rounded-2xl p-8 sm:p-10 bg-surface-container-lowest border-2 border-on-surface shadow-solid hover:shadow-solid-lg transition-shadow duration-300`}>
+    <h2 className="text-sm font-bold text-on-surface uppercase tracking-widest mb-8 flex items-center gap-3 font-serif">
+      <BookOpen size={16} className="text-primary" /> Knowledge Vault
     </h2>
     <div className="space-y-4">
       {VAULT_ARTICLES.map(article => (
-        <div key={article.id} className={`p-4 rounded-xl border transition-colors cursor-pointer group ${isLight ? 'hover:bg-slate-50 border-slate-200' : 'hover:bg-slate-800/60 border-slate-700/50'}`}>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[var(--primary-alpha)] text-[var(--primary)]">{article.category}</span>
-            <span className={`text-[10px] ${uiClasses.textMuted}`}>{article.date} · {article.readTime}</span>
+        <div key={article.id} className={`p-6 rounded-xl border-2 border-on-surface transition-all duration-300 cursor-pointer group bg-surface hover:shadow-solid hover:border-primary hover:-translate-y-0.5 hover:-translate-x-0.5 shadow-solid-sm outline-none focus-visible:ring-2 focus-visible:ring-primary`}>
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-none bg-primary/10 text-primary border-2 border-primary">{article.category}</span>
+            <span className={`text-xs font-medium text-on-surface-variant`}>{article.date} · {article.readTime}</span>
           </div>
-          <h3 className={`font-medium text-base group-hover:text-[var(--primary)] transition-colors ${isLight ? 'text-slate-800' : 'text-white'}`}>{article.title}</h3>
+          <h3 className={`font-bold text-xl group-hover:text-primary transition-colors text-on-surface font-serif`}>{article.title}</h3>
         </div>
       ))}
     </div>

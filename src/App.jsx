@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Command, Moon, Sun, Palette, User, Briefcase, FileText, Image as ImageIcon } from 'lucide-react';
+import { Command, Moon, Sun, Palette, User, Briefcase, FileText, Image as ImageIcon, Leaf } from 'lucide-react';
 import { DEFAULT_AVATAR_URL } from './constants/data';
 import { generateAIResponse } from './services/ai';
 import { Header } from './components/Header';
 import { CommandMenu } from './components/CommandMenu';
 import { ChatWidget } from './components/ChatWidget';
+import { TopNavBar, BottomNavBar } from './components/Navigation';
 import { HomeView } from './views/HomeView';
 import { TimelineView } from './views/TimelineView';
 import { VaultView } from './views/VaultView';
 import { GalleryView } from './views/GalleryView';
+import { AboutView } from './views/AboutView';
 
 const App = () => {
   // Navigation State
@@ -26,7 +28,7 @@ const App = () => {
 
   // Chat State
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [messages, setMessages] = useState([{ id: 1, sender: 'ai', text: "Chào bạn, mình là trợ lý ảo của Phong. Bạn có thể gõ phím Cmd+K (hoặc Ctrl+K) để mở bảng điều hướng nhanh nhé!" }]);
+  const [messages, setMessages] = useState([{ id: 1, sender: 'ai', text: "Chào bạn! Mình là trợ lý ảo của Phong. Bạn có thể hỏi mình bất cứ điều gì về kinh nghiệm hoặc các dự án của Phong nhé! Đừng quên gõ phím Cmd+K để mở bảng điều hướng nhanh!" }]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   
@@ -145,6 +147,7 @@ const App = () => {
   // Nav Config
   const navOptions = [
     { id: 'home', icon: <User size={16}/>, title: "Trang chủ", desc: "Thông tin cốt lõi" },
+    { id: 'about', icon: <Leaf size={16}/>, title: "Về tôi", desc: "Câu chuyện và sở thích" },
     { id: 'timeline', icon: <Briefcase size={16}/>, title: "Hành trình sự nghiệp", desc: "Kinh nghiệm & Dự án Github" },
     { id: 'vault', icon: <FileText size={16}/>, title: "Kho tri thức", desc: "Các bài viết Blog & Case Study" },
     { id: 'gallery', icon: <ImageIcon size={16}/>, title: "Thư viện ảnh", desc: "Du lịch & Cuộc sống" },
@@ -163,9 +166,9 @@ const App = () => {
   };
 
   const uiClasses = {
-    app: isLight ? 'bg-slate-50 text-slate-800' : 'bg-slate-950 text-slate-200',
+    app: '',
     card: isLight ? 'bg-white border-slate-200 shadow-sm hover:border-slate-300' : 'bg-slate-900/60 border-slate-800 hover:border-slate-700',
-    textMuted: isLight ? 'text-slate-500' : 'text-slate-400',
+    textMuted: 'text-on-surface-variant',
   };
 
   return (
@@ -187,14 +190,8 @@ const App = () => {
         </button>
       </div>
 
-      <div className="fixed top-4 right-4 z-40 flex bg-slate-800/80 backdrop-blur-md rounded-full border border-slate-700 p-1.5 gap-1 shadow-lg">
-        <button onClick={() => setTheme('dark')} className={`p-2 rounded-full transition-all ${theme === 'dark' ? 'bg-slate-950 text-white shadow' : 'text-slate-400 hover:text-white'}`}><Moon size={16} /></button>
-        <button onClick={() => setTheme('light')} className={`p-2 rounded-full transition-all ${theme === 'light' ? 'bg-white text-slate-900 shadow' : 'text-slate-400 hover:text-white'}`}><Sun size={16} /></button>
-        <button onClick={() => setTheme('auto')} className={`p-2 rounded-full transition-all relative overflow-hidden ${theme === 'auto' ? 'text-white' : 'text-slate-400 hover:text-white'}`}>
-          {theme === 'auto' && <div className="absolute inset-0 bg-[var(--primary)] opacity-100"></div>}
-          <Palette size={16} className="relative z-10" />
-        </button>
-      </div>
+      <TopNavBar currentView={currentView} handleNavigate={handleNavigate} />
+
 
       <CommandMenu isCmdOpen={isCmdOpen} setIsCmdOpen={setIsCmdOpen} isLight={isLight} cmdSearch={cmdSearch} setCmdSearch={setCmdSearch} handleNavigate={handleNavigate} navOptions={navOptions} currentView={currentView} uiClasses={uiClasses} />
 
@@ -206,12 +203,15 @@ const App = () => {
         </div>
       )}
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-28">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
         
-        <Header isLight={isLight} isMounted={isMounted} uiClasses={uiClasses} handleFileChange={handleFileChange} fileInputRef={fileInputRef} avatarUrl={avatarUrl} handleLinkClick={handleLinkClick} />
+        {currentView === 'home' && (
+          <Header isLight={isLight} isMounted={isMounted} uiClasses={uiClasses} handleFileChange={handleFileChange} fileInputRef={fileInputRef} avatarUrl={avatarUrl} handleLinkClick={handleLinkClick} />
+        )}
 
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          {currentView === 'home' && <HomeView isLight={isLight} uiClasses={uiClasses} />}
+          {currentView === 'home' && <HomeView uiClasses={uiClasses} setIsChatOpen={setIsChatOpen} />}
+          {currentView === 'about' && <AboutView uiClasses={uiClasses} />}
           {currentView === 'timeline' && <TimelineView isLight={isLight} uiClasses={uiClasses} handleLinkClick={handleLinkClick} />}
           {currentView === 'vault' && <VaultView isLight={isLight} uiClasses={uiClasses} />}
           {currentView === 'gallery' && <GalleryView isLight={isLight} uiClasses={uiClasses} />}
@@ -229,6 +229,7 @@ const App = () => {
         messagesEndRef={messagesEndRef} handleSubmit={handleSubmit} handleResetChat={handleResetChat}
         avatarUrl={avatarUrl} chatWidgetRef={chatWidgetRef}
       />
+      <BottomNavBar currentView={currentView} handleNavigate={handleNavigate} />
     </div>
   );
 };

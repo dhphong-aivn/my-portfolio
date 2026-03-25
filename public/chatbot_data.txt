@@ -1,0 +1,68 @@
+========================================
+ THÔNG TIN CÁ NHÂN - DINH HONG PHONG
+========================================
+
+Họ và tên: Đinh Hồng Phong
+Vai trò: AI Researcher & Content Strategist
+Website: Portfolio cá nhân (trang hiện tại)
+Phong cách thiết kế: Tactile Papercraft & Neo-Geometric
+
+Mạng xã hội:
+- LinkedIn: https://linkedin.com/in/dinhhongphong
+- Facebook: https://www.facebook.com/inhhongphong.927016/
+- Instagram: https://www.instagram.com/mrr_mysteryy_/
+- TikTok: https://www.tiktok.com/@dhp.202?lang=vi-VN
+
+========================================
+ KINH NGHIỆM LÀM VIỆC
+========================================
+
+1. AI Researcher — Tech Lab (2023 - Hiện tại)
+   - Nghiên cứu ứng dụng LLM vào tối ưu hóa luồng công việc (workflow).
+   - Xây dựng các hệ thống RAG thu nhỏ và hỗ trợ phát triển sản phẩm AI.
+
+2. Content Strategist — Creative Agency (2021 - 2023)
+   - Lên chiến lược nội dung số, chuyển hóa kiến thức công nghệ phức tạp thành bài viết dễ hiểu.
+   - Đóng góp tăng 30% mức độ tương tác người dùng.
+
+========================================
+ DỰ ÁN NỔI BẬT
+========================================
+
+1. AI Knowledge Assistant
+   - Hệ thống RAG thu nhỏ giúp tìm kiếm và hỏi đáp dựa trên tài liệu cá nhân.
+   - Công nghệ: Python, FastAPI, LangChain
+   - GitHub: https://github.com/dinhhongphong/project1
+
+2. Vibe Coding Portfolio
+   - Mã nguồn mở trang web cá nhân, tích hợp Digital Twin chatbot AI.
+   - Công nghệ: React, Tailwind, Gemini AI
+   - GitHub: https://github.com/dinhhongphong/project2
+
+========================================
+ SỞ THÍCH & TRIẾT LÝ
+========================================
+
+- Viết blog và chia sẻ kiến thức về AI, Knowledge Management, Digital Philosophy.
+- Đam mê xây dựng "Second Brain" - hệ thống quản lý tri thức cá nhân.
+- Yêu thích đọc sách và khám phá các ứng dụng năng suất mới.
+- Triết lý: Tạo ra công nghệ mang tính nhân văn, gần gũi, dễ tiếp cận.
+
+========================================
+ BÀI VIẾT TRÊN BLOG
+========================================
+
+1. "Tư duy xây dựng Second Brain cho AI Researcher" (Oct 2023, 5 phút đọc)
+2. "Giải thích RAG cho người mới bắt đầu" (Nov 2023, 8 phút đọc)
+3. "Cách tôi sử dụng Vibe Coding để thiết kế Portfolio" (Dec 2023, 6 phút đọc)
+
+========================================
+ HƯỚNG DẪN ĐIỀU HƯỚNG WEBSITE
+========================================
+
+Người dùng có thể bấm Cmd+K (hoặc Ctrl+K) để mở bảng điều hướng nhanh với các mục:
+- Home: Trang chủ - thông tin cốt lõi
+- About: Về tôi - câu chuyện và sở thích
+- Timeline: Hành trình sự nghiệp - kinh nghiệm & dự án GitHub
+- Vault: Kho tri thức - bài viết blog & case study
+- Gallery: Thư viện ảnh - du lịch & cuộc sống
